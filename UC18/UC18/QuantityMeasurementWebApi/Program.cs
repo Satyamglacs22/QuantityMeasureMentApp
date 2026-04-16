@@ -144,6 +144,9 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.Urls.Add($"http://0.0.0.0:{port}");
+
 app.Run();
 
 public partial class Program { }
