@@ -1,0 +1,21 @@
+services:
+  - type: pgo
+    name: quantity-measurement-db
+    plan: free
+
+  - type: web
+    name: quantity-measurement-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DefaultConnection
+        fromDatabase:
+          name: quantity-measurement-db
+          property: connectionString
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: quantity-measurement-db
+          property: connectionString
+      - key: JWT_KEY
+        generateValue: true

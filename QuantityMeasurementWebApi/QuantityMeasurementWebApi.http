@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:5000/api/v1/quantities
+
+### Compare two lengths
+POST {{baseUrl}}/compare
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": { "value": 1.0, "unitName": "Feet", "measurementType": "Length" },
+  "thatQuantityDTO": { "value": 12.0, "unitName": "Inch", "measurementType": "Length" }
+}
+
+### Convert length
+POST {{baseUrl}}/convert
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": { "value": 1.0, "unitName": "Feet", "measurementType": "Length" },
+  "targetUnit": "Inch"
+}
+
+### Add two lengths
+POST {{baseUrl}}/add
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": { "value": 1.0, "unitName": "Feet", "measurementType": "Length" },
+  "thatQuantityDTO": { "value": 12.0, "unitName": "Inch", "measurementType": "Length" },
+  "targetUnit": "Feet"
+}
+
+### Subtract two weights
+POST {{baseUrl}}/subtract
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": { "value": 2.0, "unitName": "Kilogram", "measurementType": "Weight" },
+  "thatQuantityDTO": { "value": 500.0, "unitName": "Gram", "measurementType": "Weight" },
+  "targetUnit": "Kilogram"
+}
+
+### Divide two lengths
+POST {{baseUrl}}/divide
+Content-Type: application/json
+
+{
+  "thisQuantityDTO": { "value": 2.0, "unitName": "Feet", "measurementType": "Length" },
+  "thatQuantityDTO": { "value": 1.0, "unitName": "Feet", "measurementType": "Length" }
+}
+
+### Get history by operation
+GET {{baseUrl}}/history/operation/Add
+
+### Get history by type
+GET {{baseUrl}}/history/type/Length
+
+### Get error history
+GET {{baseUrl}}/history/errored
+
+### Get operation count
+GET {{baseUrl}}/count/Add
+
+### Health check
+GET http://localhost:5000/health
