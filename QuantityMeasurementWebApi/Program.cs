@@ -19,12 +19,13 @@ string jwtKey = Environment.GetEnvironmentVariable("JWT_KEY")
 // ================== DATABASE ==================
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Render sets the PostgreSQL connection string as a URL: postgres://user:pass@host/db
-if (!string.IsNullOrEmpty(connectionString) && connectionString.StartsWith("postgres://"))
+// Handle Render's postgres:// or postgresql:// URL format
+if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("://"))
 {
     var databaseUri = new Uri(connectionString);
     var userInfo = databaseUri.UserInfo.Split(':');
-    connectionString = $"Host={databaseUri.Host};Port={(databaseUri.IsDefaultPort ? 5432 : databaseUri.Port)};Username={userInfo[0]};Password={userInfo[1]};Database={databaseUri.LocalPath.TrimStart('/')};Pooling=true;";
+    var password = userInfo.Length > 1 ? userInfo[1] : "";
+    connectionString = $"Host={databaseUri.Host};Port={(databaseUri.IsDefaultPort ? 5432 : databaseUri.Port)};Username={userInfo[0]};Password={password};Database={databaseUri.LocalPath.TrimStart('/')};Pooling=true;";
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>
