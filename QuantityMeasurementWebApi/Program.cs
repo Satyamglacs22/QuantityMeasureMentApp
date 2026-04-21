@@ -25,7 +25,7 @@ if (!string.IsNullOrEmpty(connectionString) && connectionString.Contains("://"))
     var databaseUri = new Uri(connectionString);
     var userInfo = databaseUri.UserInfo.Split(':');
     var password = userInfo.Length > 1 ? userInfo[1] : "";
-    connectionString = $"Host={databaseUri.Host};Port={(databaseUri.IsDefaultPort ? 5432 : databaseUri.Port)};Username={userInfo[0]};Password={password};Database={databaseUri.LocalPath.TrimStart('/')};Pooling=true;";
+    connectionString = $"Host={databaseUri.Host};Port={(databaseUri.Port > 0 ? databaseUri.Port : 5432)};Username={userInfo[0]};Password={password};Database={databaseUri.LocalPath.TrimStart('/')};Pooling=true;";
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>

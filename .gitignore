@@ -1,0 +1,15 @@
+# Ignore build folders
+bin/
+obj/
+
+# Ignore Visual Studio / .NET files
+.vs/
+*.slnx
+
+# Ignore user/cache files
+*.user
+*.suo
+*.cache
+
+# Allow only C# source files
+!*.cs
