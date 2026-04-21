@@ -3,6 +3,7 @@ databases:
     plan: free
 
 services:
+  - type: web
     name: quantity-measurement-api
     env: docker
     plan: free
